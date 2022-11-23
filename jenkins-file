@@ -1,0 +1,19 @@
+node('built-in')
+{
+    stage('continousdownloading')
+    {
+    git 'https://github.com/intelliqittrainings/maven.git'
+    }
+    stage('continousbuilding')
+    {
+        sh 'mvn package'
+    }   
+    stage('continousdeployment')
+    {
+        deploy adapters: [tomcat9(credentialsId: 'ca23a7b0-53a5-4e91-9d97-b787a883658e', path: '', url: 'http://898.90.09:8080')], contextPath: 'nmkj', war: '**/*.war'
+    }
+    stage('continoustesting')
+    {
+        deploy adapters: [tomcat9(credentialsId: 'ca23a7b0-53a5-4e91-9d97-b787a883658e', path: '', url: 'http://898.90.09:8080')], contextPath: 'nmkj', war: '**/*.war'
+        
+}
